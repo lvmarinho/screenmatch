@@ -9,10 +9,7 @@ import br.com.alura.screenmatch.service.ConverteDados;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 //Declarando as constantes
@@ -57,6 +54,21 @@ public class Principal {
                 .map(d -> new Episodios(t.numero(), d))
                 ).collect(Collectors.toList());
         episodios.forEach(System.out::println);
+
+        // Buscando episódio pelo trecho do episódio buscado//
+        System.out.print("Digite o trecho do título do episódio que deseja encontrar: ");
+        var trechotitulo = leitura.nextLine();
+        Optional<Episodios> episodioBuscado = episodios.stream()
+                .filter(e -> e.getTitulo().toUpperCase().contains(trechotitulo.toUpperCase()))
+                        .findFirst();
+        if (episodioBuscado.isPresent()){
+            System.out.println("Episódio encontrado!");
+            System.out.println("Temporada: " + episodioBuscado.get().getTemporada());
+        }else{
+            System.out.println("Episódio não encontrado!");
+        }
+
+
 
         //buscando episódios, filtrando a partir de uma data e exibir data formatada// //
 
